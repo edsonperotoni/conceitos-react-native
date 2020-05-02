@@ -21,19 +21,17 @@ export default function App() {
 
   async function handleLikeRepository(id) {
     // Implement "Like Repository" functionality
-    console.log(id);
-    const repository = await api.post("/repositories/" + id +'/like').then((response)=>{
-      const repository = response.data;
-      console.log(repository);
-      const repositoriesClone = [...repositories];
-      const repositorieIndex = repositoriesClone.findIndex(
-        (repository) => repository.id === id
-      );
-      repositoriesClone[repositorieIndex].likes = repository.likes;
-      setRepositories(repositoriesClone);
-    });
-    
-    
+    const repository = await api
+      .post("/repositories/" + id + "/like")
+      .then((response) => {
+        const repository = response.data;
+        const repositoriesClone = [...repositories];
+        const repositoryIndex = repositoriesClone.findIndex(
+          (repository) => repository.id === id
+        );
+        repositoriesClone[repositoryIndex].likes = repository.likes;
+        setRepositories(repositoriesClone);
+      });
   }
 
   return (
